@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{0309ED58-5EF3-87B5-6ED0-C9C00E558A1A}</ProjectGuid>
+	<ProjectGuid>{B3DF3C16-0A86-600E-EFB0-8D6F559A358E}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -50,6 +50,9 @@
      <Compile Include="Assets\iTweenEditor\Editor\iTweenPathEditor.cs" />
      <None Include="Assets\Readme.txt" />
      <None Include="Assets\iTweenEditor\README.txt" />
+ <Reference Include="Assembly-UnityScript">
+ <HintPath>D:/unity projects/UrbanLadderKitchens_GitHub/UrbanLadderKitchens/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity5/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -103,8 +106,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{D45132B7-B63C-2317-5D90-902C5F5EEC64}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-vs.csproj">
-      <Project>{DA216CBB-0BDA-FB10-3783-A368061948E6}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
+      <Project>{EAE0A5EF-6FC6-EA27-4123-2CA5B13EB1AA}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

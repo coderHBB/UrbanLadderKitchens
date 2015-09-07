@@ -1,11 +1,20 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿/*****************
+ * Manish
+ * This script is takes care of the wals behavior
+*****************/
 
-public class wallScript : MonoBehaviour {
+
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class WallScript : MonoBehaviour {
 
 	public GameObject initialVertex;  // initialPoint of the wall
 	public GameObject finalVertex;	  // finalPoint of the wall
 	public float lengthOfWall;        // The length of the wall, from initialVertex to FinalVertex.
+	public List<GameObject> cornerObjects = new List<GameObject>();   // if there are any cornerObjects along the wall
+
 
 	//to calculate angle of rotation
 	Vector3 thirdPoint;
@@ -14,9 +23,11 @@ public class wallScript : MonoBehaviour {
 	float angle;
 	/// 
 
-	public Vector3 boundExtends; // Vector that stores the mesh bounds of the wall
+	public Vector3 boundExtends; // Vector that stores the mesh bounds of the wall //
 	Vector3 wallPosition;        // position of the wall
 	Vector3 alteredPosition;      // altered position of wall after
+
+	public BoundingBox boundingBox; // The bounding box attached to this wall
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +36,9 @@ public class wallScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		if(Input.GetKeyDown (KeyCode.Space))
-			wallUpdate();
+		//if(Input.GetKeyDown (KeyCode.Q))
+		//wallUpdate(); // temporarily kept on update, should be called only when an event is triggered
+
 	}
 
 	void bounds () //mesh bounds of the wall
@@ -34,26 +46,23 @@ public class wallScript : MonoBehaviour {
 		boundExtends = gameObject.GetComponent<Renderer>().bounds.extents;
 	}
 
-	void wallUpdate ()
+	public void wallUpdate ()
 	{
-
 		wallPosition = (initialVertex.transform.position + finalVertex.transform.position)/2; //positioning the wall
-
-		// keeps the wall edges without overlapping each other
-		if(gameObject.name == "topWall")
-			alteredPosition = new Vector3 (wallPosition.x, -0.5f, wallPosition.z + boundExtends.z);
-		if(gameObject.name == "bottomWall")
-			alteredPosition = new Vector3 (wallPosition.x, -0.5f, wallPosition.z - boundExtends.z);
-		if(gameObject.name == "leftWall")
-			alteredPosition = new Vector3 (wallPosition.x - boundExtends.x, -0.5f, wallPosition.z);
-		if(gameObject.name == "rightWall")
-			alteredPosition = new Vector3 (wallPosition.x + boundExtends.x, -0.5f, wallPosition.z);
-		///
-		gameObject.transform.position = alteredPosition; // assigning position
-
-//		gameObject.transform.position = (initialVertex.transform.position + finalVertex.transform.position)/2; //positioning the wall
 		lengthOfWall = Vector3.Distance (initialVertex.transform.position,finalVertex.transform.position); // calculates the length of the wall
 		gameObject.transform.localScale = new Vector3(lengthOfWall,2.4384f,0.1f);  // scaling the wall
+//		bounds ();
+		// keeps the wall edges without overlapping each other
+		if(gameObject.name == "topWall")
+			alteredPosition = new Vector3 (wallPosition.x, 0, wallPosition.z + 0.05f);  // 0.05f is the boundExtends.z of the wall
+		if(gameObject.name == "bottomWall")
+			alteredPosition = new Vector3 (wallPosition.x, 0, wallPosition.z - 0.05f);  // 0.05f is the boundExtends.z of the wall
+		if(gameObject.name == "leftWall")
+			alteredPosition = new Vector3 (wallPosition.x - 0.05f, 0, wallPosition.z);  // 0.05f is the boundExtends.x of the wall
+		if(gameObject.name == "rightWall")
+			alteredPosition = new Vector3 (wallPosition.x + 0.05f, 0, wallPosition.z);	// 0.05f is the boundExtends.x of the wall
+		///
+		gameObject.transform.position = alteredPosition; // assigning position
 
 		//calculate angle of wall
 		thirdPoint = new Vector2 (finalVertex.transform.position.x, initialVertex.transform.position.z);
@@ -73,7 +82,5 @@ public class wallScript : MonoBehaviour {
 			gameObject.transform.rotation = Quaternion.Euler (0, -angle, 0); // inverts the wall
 			
 		}
-
-		bounds ();
 	}
 }
