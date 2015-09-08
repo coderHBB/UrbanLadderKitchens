@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{DA216CBB-0BDA-FB10-3783-A368061948E6}</ProjectGuid>
+	<ProjectGuid>{EAE0A5EF-6FC6-EA27-4123-2CA5B13EB1AA}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -78,9 +78,14 @@
      <Compile Include="Assets\FingerGestures\Toolbox\TBTap.cs" />
      <Compile Include="Assets\FingerGestures\Utils\GestureStateTracker.cs" />
      <Compile Include="Assets\FingerGestures\Utils\MoveToFinger.cs" />
-     <Compile Include="Assets\HBB_Scripts\roomManager.cs" />
-     <Compile Include="Assets\HBB_Scripts\uiManager.cs" />
-     <Compile Include="Assets\HBB_Scripts\wallScript.cs" />
+     <Compile Include="Assets\HBB_Scripts\BoundingBox.cs" />
+     <Compile Include="Assets\HBB_Scripts\CabinetManager.cs" />
+     <Compile Include="Assets\HBB_Scripts\CabinetScript.cs" />
+     <Compile Include="Assets\HBB_Scripts\HUDFPS.cs" />
+     <Compile Include="Assets\HBB_Scripts\RoomManager.cs" />
+     <Compile Include="Assets\HBB_Scripts\UIManager.cs" />
+     <Compile Include="Assets\HBB_Scripts\VertScript.cs" />
+     <Compile Include="Assets\HBB_Scripts\WallScript.cs" />
      <Compile Include="Assets\iTweenEditor\Examples\StartAndStopTween.cs" />
      <Compile Include="Assets\iTweenEditor\Helper Classes\EventParamMappings.cs" />
      <Compile Include="Assets\iTweenEditor\Helper Classes\Vector3OrTransform.cs" />
@@ -102,6 +107,10 @@
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity5/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{D45132B7-B63C-2317-5D90-902C5F5EEC64}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
