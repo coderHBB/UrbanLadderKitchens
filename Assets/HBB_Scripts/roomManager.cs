@@ -44,6 +44,7 @@ public class RoomManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		InputFromUserAccepted ();
 
 	}
 	
@@ -105,27 +106,30 @@ public class RoomManager : MonoBehaviour {
 		bottomWall.wallUpdate ();
 		leftWall.wallUpdate ();
 		rightWall.wallUpdate ();
-		
-		foreach(GameObject cornerUnit in topWall.cornerObjects)
-		{
-			cornerUnit.GetComponent<CabinetScript>().Positioning ();
+
+		//Assigning the positions of te corner unit
+		foreach (GameObject cabinet in CabinetManager.Instance.cabinetsInScene) {
+			if(cabinet.GetComponent<CabinetScript>()._typeOfCabinet == CabinetScript.TypeOfCabinet.CornerCabinet)
+				cabinet.GetComponent<CabinetScript>().Positioning ();
 		}
-		foreach(GameObject cornerUnit in bottomWall.cornerObjects)
-		{
-			cornerUnit.GetComponent<CabinetScript>().Positioning ();
-		}
-		foreach(GameObject cornerUnit in leftWall.cornerObjects)
-		{
-			cornerUnit.GetComponent<CabinetScript>().Positioning ();
-		}
-		foreach(GameObject cornerUnit in rightWall.cornerObjects)
-		{
-			cornerUnit.GetComponent<CabinetScript>().Positioning ();
-		}
-		
+
+		//Assinging the positions, scale and rotation of the bounding box
 		topWall.boundingBox.PositionScaleRotation ();
 		bottomWall.boundingBox.PositionScaleRotation ();
 		leftWall.boundingBox.PositionScaleRotation ();
 		rightWall.boundingBox.PositionScaleRotation ();
+
+		//Finding the cabinets within the boundingBox and assigning it to its respective walls
+		topWall.boundingBox.FindCabinetsInsideTheBoundingBox ();
+		bottomWall.boundingBox.FindCabinetsInsideTheBoundingBox ();
+		leftWall.boundingBox.FindCabinetsInsideTheBoundingBox ();
+		rightWall.boundingBox.FindCabinetsInsideTheBoundingBox ();
+
+		//Assinging the positions of the cabinets (except corner cabinet)
+		foreach (GameObject cabinet in CabinetManager.Instance.cabinetsInScene) {
+			if(cabinet.GetComponent<CabinetScript>()._typeOfCabinet != CabinetScript.TypeOfCabinet.CornerCabinet)
+				cabinet.GetComponent<CabinetScript>().Positioning ();
+		}
+
 	}
 }
