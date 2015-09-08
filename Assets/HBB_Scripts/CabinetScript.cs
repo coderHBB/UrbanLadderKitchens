@@ -92,13 +92,13 @@ public class CabinetScript : MonoBehaviour {
 				gameObject.transform.position = new Vector3(gameObject.transform.position.x + boundExtends.x ,0 , gameObject.transform.position.z + boundExtends.z);
 			
 			if(_cornerObj.cornerVert.name == "vertexA2")
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x + boundExtends.x , 0 , gameObject.transform.position.z - boundExtends.z);
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x + boundExtends.x ,0 , gameObject.transform.position.z - boundExtends.z);
 			
 			if(_cornerObj.cornerVert.name == "vertexB1")
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x , 0 , gameObject.transform.position.z + boundExtends.z);
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x ,0 , gameObject.transform.position.z + boundExtends.z);
 			
 			if(_cornerObj.cornerVert.name == "vertexB2")
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x , 0 , gameObject.transform.position.z - boundExtends.z);
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x ,0 , gameObject.transform.position.z - boundExtends.z);
 
 			break;
 
@@ -116,12 +116,12 @@ public class CabinetScript : MonoBehaviour {
 	void positionCabinets () // positions all cabinets except corner cabinets
 	{
 		if(attachedToWall.name == "topWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x ,attachedToWall.transform.position.y,attachedToWall.transform.position.z - boundExtends.z - 0.05f);
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x ,gameObject.transform.position.y,attachedToWall.transform.position.z - boundExtends.z - 0.05f);
 		if(attachedToWall.name == "leftWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x + boundExtends.x + 0.05f ,attachedToWall.transform.position.y,attachedToWall.transform.position.z);
+			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x + boundExtends.x + 0.05f ,gameObject.transform.position.y,gameObject.transform.position.z);
 		if(attachedToWall.name == "rightWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x - boundExtends.x - 0.05f ,attachedToWall.transform.position.y,attachedToWall.transform.position.z);
+			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x - boundExtends.x - 0.05f ,gameObject.transform.position.y,gameObject.transform.position.z);
 		if(attachedToWall.name == "bottomWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x ,attachedToWall.transform.position.y,attachedToWall.transform.position.z + boundExtends.z + 0.05f);
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x ,gameObject.transform.position.y,attachedToWall.transform.position.z + boundExtends.z + 0.05f);
 	}
 }

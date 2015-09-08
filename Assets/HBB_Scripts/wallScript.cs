@@ -47,17 +47,12 @@ public class WallScript : MonoBehaviour {
 		boundExtends = gameObject.GetComponent<Renderer>().bounds.extents;
 	}
 
-	public void wallUpdate ()
+	public void WallUpdate ()
 	{
-		foreach (GameObject cabinet in listOfCabinetsOnWall) {
-			if(cabinet.GetComponent<CabinetScript>()._typeOfCabinet == CabinetScript.TypeOfCabinet.Hob)
-				print ("The Hob is attached to "+this.gameObject.name);
-		}
-
 		wallPosition = (initialVertex.transform.position + finalVertex.transform.position)/2; //positioning the wall
 		lengthOfWall = Vector3.Distance (initialVertex.transform.position,finalVertex.transform.position); // calculates the length of the wall
 		gameObject.transform.localScale = new Vector3(lengthOfWall,2.4384f,0.1f);  // scaling the wall
-//		bounds ();
+
 		// keeps the wall edges without overlapping each other
 		if(gameObject.name == "topWall")
 			alteredPosition = new Vector3 (wallPosition.x, 0, wallPosition.z + 0.05f);  // 0.05f is the boundExtends.z of the wall
