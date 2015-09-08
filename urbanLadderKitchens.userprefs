@@ -1,21 +1,11 @@
 ﻿<Properties>
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/HBB_Scripts/CameraManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/HBB_Scripts/RaviScripts/ObjectInteractionClient.cs">
     <Files>
-      <File FileName="Assets/HBB_Scripts/CameraManager.cs" Line="50" Column="30" />
-      <File FileName="Assets/HBB_Scripts/ObjectInteractionClient.cs" Line="43" Column="53" />
-      <File FileName="Assets/HBB_Scripts/CabinetScript.cs" Line="52" Column="1" />
-      <File FileName="Assets/HBB_Scripts/RoomManager.cs" Line="32" Column="29" />
-=======
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\HBB_Scripts\BoundingBox.cs">
-    <Files>
-      <File FileName="Assets\HBB_Scripts\CabinetScript.cs" Line="29" Column="75" />
-      <File FileName="Assets\HBB_Scripts\WallScript.cs" Line="16" Column="30" />
-      <File FileName="Assets\HBB_Scripts\RoomManager.cs" Line="48" Column="3" />
-      <File FileName="Assets\HBB_Scripts\BoundingBox.cs" Line="130" Column="6" />
->>>>>>> manishDevelopmentBranch
+      <File FileName="Assets/HBB_Scripts/RaviScripts/CameraManager.cs" Line="44" Column="67" />
+      <File FileName="Assets/HBB_Scripts/CabinetScript.cs" Line="55" Column="3" />
+      <File FileName="Assets/HBB_Scripts/RoomManager.cs" Line="35" Column="21" />
+      <File FileName="Assets/HBB_Scripts/RaviScripts/ObjectInteractionClient.cs" Line="13" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
