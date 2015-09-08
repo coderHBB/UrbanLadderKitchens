@@ -13,6 +13,7 @@ public class WallScript : MonoBehaviour {
 	public GameObject initialVertex;  // initialPoint of the wall
 	public GameObject finalVertex;	  // finalPoint of the wall
 	public float lengthOfWall;        // The length of the wall, from initialVertex to FinalVertex.
+	public List<GameObject> listOfCabinetsOnWall = new List<GameObject> (); // number of walls attached to the wall
 	public List<GameObject> cornerObjects = new List<GameObject>();   // if there are any cornerObjects along the wall
 
 
@@ -48,6 +49,11 @@ public class WallScript : MonoBehaviour {
 
 	public void wallUpdate ()
 	{
+		foreach (GameObject cabinet in listOfCabinetsOnWall) {
+			if(cabinet.GetComponent<CabinetScript>()._typeOfCabinet == CabinetScript.TypeOfCabinet.Hob)
+				print ("The Hob is attached to "+this.gameObject.name);
+		}
+
 		wallPosition = (initialVertex.transform.position + finalVertex.transform.position)/2; //positioning the wall
 		lengthOfWall = Vector3.Distance (initialVertex.transform.position,finalVertex.transform.position); // calculates the length of the wall
 		gameObject.transform.localScale = new Vector3(lengthOfWall,2.4384f,0.1f);  // scaling the wall
