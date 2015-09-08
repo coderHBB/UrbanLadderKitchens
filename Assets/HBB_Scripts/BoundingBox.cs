@@ -10,11 +10,17 @@ public class BoundingBox : MonoBehaviour {
 
 	public WallScript attachedToWall;
 	public Vector3 boundExtends;
+	public float totalSpace;        // the total space available in the bounding box in millimeters.
+	public float availableSpace;	// the space available in the bounding box to place more cabinets (in mm).
+	public float occupiedSpace;			// the space occupied by the cabinets in the bounding box (in mm).
 
+	public Vector3 bounds_min;
+	public Vector3 bounds_max;
 
 	// Use this for initialization
 	void Start () {
 //		PositionScaleRotation ();
+
 	}
 	
 	// Update is called once per frame
@@ -109,6 +115,24 @@ public class BoundingBox : MonoBehaviour {
 					gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y,attachedToWall.cornerObjects[1].transform.position.z + attachedToWall.cornerObjects[1].GetComponent<CabinetScript>().boundExtends.z + boundExtends.z);
 				}
 			}
+		}
+	}
+
+	public void FindCabinetsInsideTheBoundingBox ()     // Finds the cabinets within the bounding box and assigns it to the attachedWall
+	{
+		bounds_min = gameObject.GetComponent<Renderer> ().bounds.min;
+		bounds_max = gameObject.GetComponent<Renderer> ().bounds.max;
+
+		foreach (GameObject g in CabinetManager.Instance.cabinetsInScene) {
+			if(g.transform.position.x >= bounds_min.x && g.transform.position.x <= bounds_max.x && g.transform.position.z >= bounds_min.z && g.transform.position.z <= bounds_max.z){
+				if(!g.GetComponent<CabinetScript>().isAddedToWall){
+					attachedToWall.listOfCabinetsOnWall.Add (g);
+					g.GetComponent<CabinetScript>().isAddedToWall = true;
+				}
+				print ("attached wall "+attachedToWall.name);
+				g.GetComponent<CabinetScript>().attachedToWall = attachedToWall.gameObject;
+			}
+
 		}
 	}
 }
