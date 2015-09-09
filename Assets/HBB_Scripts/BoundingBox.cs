@@ -5,6 +5,8 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class BoundingBox : MonoBehaviour {
 
@@ -12,10 +14,11 @@ public class BoundingBox : MonoBehaviour {
 	public Vector3 boundExtends;
 	public float totalSpace;        // the total space available in the bounding box in millimeters.
 	public float availableSpace;	// the space available in the bounding box to place more cabinets (in mm).
-	public float occupiedSpace;			// the space occupied by the cabinets in the bounding box (in mm).
+	public float occupiedSpace;		// the space occupied by the cabinets in the bounding box (in mm).
 
 	public Vector3 bounds_min;
 	public Vector3 bounds_max;
+
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +34,7 @@ public class BoundingBox : MonoBehaviour {
 	}
 
 
-	public void PositionScaleRotation ()
+	public void PositionScaleRotation () 
 	{
 		float cornerSpace = 0;
 		//scale
@@ -116,6 +119,7 @@ public class BoundingBox : MonoBehaviour {
 				}
 			}
 		}
+
 	}
 
 	public void FindCabinetsInsideTheBoundingBox ()     // Finds the cabinets within the bounding box and assigns it to the attachedWall
@@ -132,7 +136,6 @@ public class BoundingBox : MonoBehaviour {
 				print ("attached wall "+attachedToWall.name);
 				g.GetComponent<CabinetScript>().attachedToWall = attachedToWall.gameObject;
 			}
-
 		}
 	}
 }

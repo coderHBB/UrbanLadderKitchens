@@ -81,6 +81,7 @@
      <Compile Include="Assets\HBB_Scripts\BoundingBox.cs" />
      <Compile Include="Assets\HBB_Scripts\CabinetManager.cs" />
      <Compile Include="Assets\HBB_Scripts\CabinetScript.cs" />
+     <Compile Include="Assets\HBB_Scripts\Database.cs" />
      <Compile Include="Assets\HBB_Scripts\HUDFPS.cs" />
      <Compile Include="Assets\HBB_Scripts\RoomManager.cs" />
      <Compile Include="Assets\HBB_Scripts\VertScript.cs" />

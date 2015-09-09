@@ -50,6 +50,11 @@ public class RoomManager : MonoBehaviour {
 	public float distanceFromInitailVertToHob;
 	public float distanceFromFinalVertToHob;
 
+	public float percentageOfWallFromInitial;
+	public float percentageOfWallFromFinal;
+	public float wallLengthToBeAddedFromInitial;
+	public float wallLengthToBeAddedFromFinal;
+
 	// Use this for initialization
 	void Start () {
 		InputFromUserAccepted ();
@@ -86,37 +91,43 @@ public class RoomManager : MonoBehaviour {
 		float currentWidthOfKitchen = Vector3.Distance (vertA1.transform.position, vertB1.transform.position);
 		float alteredWidth = widthOfKitchenFromUser - currentWidthOfKitchen;
 		print ("alteredWidth : " + alteredWidth);
-	
-		if (isHobAlongTheWidth) {
-			print ("percentage initial : " + Percentage (distanceFromInitailVertToHob, currentWidthOfKitchen));
-			print ("percentage final : " + Percentage (distanceFromFinalVertToHob, currentWidthOfKitchen));
-			print ("tobeAddedFromInitial : " + WallLengthToBeChanged (Percentage (distanceFromInitailVertToHob, currentWidthOfKitchen), alteredWidth));
-			print ("tobeAddedFromFinal : " + WallLengthToBeChanged (Percentage (distanceFromFinalVertToHob, currentWidthOfKitchen), alteredWidth));
-
-			MoveWallVertex_width (WallLengthToBeChanged (Percentage (distanceFromInitailVertToHob, currentWidthOfKitchen), alteredWidth), WallLengthToBeChanged (Percentage (distanceFromFinalVertToHob, currentWidthOfKitchen), alteredWidth));
-		} else
-			MoveWallVertex_width ((alteredWidth / 2), (alteredWidth / 2));
-
-//		vertA1.transform.position = new Vector3(vertA1.transform.position.x - (alteredWidth)/2,vertA1.transform.position.y,vertA1.transform.position.z);
-//		vertB1.transform.position = new Vector3(vertB1.transform.position.x + (alteredWidth)/2,vertB1.transform.position.y,vertB1.transform.position.z);
-//
-//		vertA2.transform.position = new Vector3(vertA2.transform.position.x - (alteredWidth)/2,vertA2.transform.position.y,vertA2.transform.position.z);
-//		vertB2.transform.position = new Vector3(vertB2.transform.position.x + (alteredWidth)/2,vertB2.transform.position.y,vertB2.transform.position.z);
 
 		//Depth of Kitchen
 		float depthOfKitchenFromUser = inMeters (feet_Depth, inch_Depth);
 		float currentDepthOfKitchen = Vector3.Distance (vertA1.transform.position, vertA2.transform.position);
 		float alteredDepth = depthOfKitchenFromUser - currentDepthOfKitchen;
 
-		vertA1.transform.position = new Vector3(vertA1.transform.position.x,vertA1.transform.position.y,vertA1.transform.position.z - (alteredDepth)/2);
-		vertB1.transform.position = new Vector3(vertB1.transform.position.x,vertB1.transform.position.y,vertB1.transform.position.z - (alteredDepth)/2);
-		
-		vertA2.transform.position = new Vector3(vertA2.transform.position.x ,vertA2.transform.position.y,vertA2.transform.position.z + (alteredDepth)/2);
-		vertB2.transform.position = new Vector3(vertB2.transform.position.x,vertB2.transform.position.y,vertB2.transform.position.z + (alteredDepth)/2);
+	
+		if (isHobAlongTheWidth) { //hob is along the width of kitchen
 
+			print ("along the width");
+			percentageOfWallFromInitial = Percentage (distanceFromInitailVertToHob, currentWidthOfKitchen);
+			percentageOfWallFromFinal = Percentage (distanceFromFinalVertToHob, currentWidthOfKitchen);
+			wallLengthToBeAddedFromInitial = WallLengthToBeChanged (Percentage (distanceFromInitailVertToHob, currentWidthOfKitchen), alteredWidth);
+			wallLengthToBeAddedFromFinal = WallLengthToBeChanged (Percentage (distanceFromFinalVertToHob, currentWidthOfKitchen), alteredWidth);
+
+			MoveWallVertex_width (WallLengthToBeChanged (percentageOfWallFromInitial, alteredWidth), WallLengthToBeChanged (percentageOfWallFromFinal, alteredWidth));
+			MoveWallVertex_depth ((alteredDepth / 2), (alteredDepth / 2));
+			print ("alteredDepth : " + alteredDepth);
+		} 
+		else { // hob is along the depth of the kitchen
+			print ("along the depth");
+
+			percentageOfWallFromInitial = Percentage (distanceFromInitailVertToHob,currentDepthOfKitchen);
+			percentageOfWallFromFinal = Percentage (distanceFromFinalVertToHob,currentDepthOfKitchen);
+			wallLengthToBeAddedFromInitial = WallLengthToBeChanged (Percentage (distanceFromInitailVertToHob, currentDepthOfKitchen), alteredDepth);
+			wallLengthToBeAddedFromFinal = WallLengthToBeChanged (Percentage (distanceFromFinalVertToHob, currentDepthOfKitchen), alteredDepth);
+
+			if(hobOnWall == null) // used for the first time when the hobOnWall is null
+				MoveWallVertex_depth ((alteredDepth / 2), (alteredDepth / 2));
+			MoveWallVertex_depth (WallLengthToBeChanged (percentageOfWallFromInitial, alteredDepth), WallLengthToBeChanged (percentageOfWallFromFinal, alteredDepth));
+
+			MoveWallVertex_width ((alteredWidth / 2), (alteredWidth / 2));
+
+		}
 	}
 
-	void MoveWallVertex_width (float toBeAddedOnA1A2, float toBeAddedOnB1B2) // Moves the vertices of the walls based on the parameters passed
+	void MoveWallVertex_width (float toBeAddedOnA1A2, float toBeAddedOnB1B2) // Moves the vertices of the walls along its width based on the parameters passed
 	{
 		vertA1.transform.position = new Vector3(vertA1.transform.position.x - toBeAddedOnA1A2,vertA1.transform.position.y,vertA1.transform.position.z);
 		vertB1.transform.position = new Vector3(vertB1.transform.position.x + toBeAddedOnB1B2,vertB1.transform.position.y,vertB1.transform.position.z);
@@ -125,9 +136,17 @@ public class RoomManager : MonoBehaviour {
 		vertB2.transform.position = new Vector3(vertB2.transform.position.x + toBeAddedOnB1B2,vertB2.transform.position.y,vertB2.transform.position.z);
 	}
 
+	void MoveWallVertex_depth (float toBeAddedOnA1B1, float toBeAddedOnA2B2) // Moves the vertices of the walls along its depth based on the parameters passed
+	{
+		vertA1.transform.position = new Vector3(vertA1.transform.position.x, vertA1.transform.position.y,vertA1.transform.position.z - toBeAddedOnA1B1);
+		vertB1.transform.position = new Vector3(vertB1.transform.position.x, vertB1.transform.position.y,vertB1.transform.position.z - toBeAddedOnA1B1);
+		
+		vertA2.transform.position = new Vector3(vertA2.transform.position.x, vertA2.transform.position.y,vertA2.transform.position.z + toBeAddedOnA2B2);
+		vertB2.transform.position = new Vector3(vertB2.transform.position.x, vertB2.transform.position.y,vertB2.transform.position.z + toBeAddedOnA2B2);
+	}
+
 	public void InputFromUserAccepted () // should be called after the input from the user is received
 	{
-//		print ("meters : "+inMeters (feet_Width, inch_Width));
 		ChangeDimension ();
 		topWall.WallUpdate ();
 		bottomWall.WallUpdate ();
@@ -157,31 +176,49 @@ public class RoomManager : MonoBehaviour {
 			if(cabinet.GetComponent<CabinetScript>()._typeOfCabinet != CabinetScript.TypeOfCabinet.CornerCabinet)
 				cabinet.GetComponent<CabinetScript>().Positioning ();
 		}
-		
+
+		//To find wallHob ratio
 		HobWall ();
 
 	}
 
 	void HobWall () // To find which wall is the hob attached to.
 	{
-		Vector3 hobWallPoint;
+		Vector3 hobWallPoint = Vector3.zero;
 
 		foreach (GameObject cabinet in CabinetManager.Instance.cabinetsInScene) {
 			if(cabinet.GetComponent<CabinetScript>()._typeOfCabinet == CabinetScript.TypeOfCabinet.Hob)
 			{
 				hobOnWall = cabinet.GetComponent<CabinetScript>().attachedToWall.GetComponent<WallScript>();
-//				print ("the hob is atached to "+hobOnWall.name);
+
+				print ("the hob is atached to "+hobOnWall.name);
 
 				if(hobOnWall.name == "topWall")
 				{
 					hobWallPoint = new Vector3(cabinet.transform.position.x,cabinet.transform.position.y,cabinet.transform.position.z + cabinet.GetComponent<CabinetScript>().boundExtends.z);
-					distanceFromInitailVertToHob = Vector3.Distance (hobOnWall.initialVertex.transform.position,hobWallPoint);
-					distanceFromFinalVertToHob = Vector3.Distance (hobOnWall.finalVertex.transform.position,hobWallPoint);
 					isHobAlongTheWidth = true;
-//					print ("initToHob : "+distanceFromInitailVertToHob+" finalToHob : "+distanceFromFinalVertToHob);
 				}
 
-				//do similarly for bottomWall,leftWall,rightWall
+				if(hobOnWall.name == "bottomWall")
+				{
+					hobWallPoint = new Vector3(cabinet.transform.position.x,cabinet.transform.position.y,cabinet.transform.position.z - cabinet.GetComponent<CabinetScript>().boundExtends.z);
+					isHobAlongTheWidth = true;
+				}
+
+				if(hobOnWall.name == "leftWall")
+				{
+					hobWallPoint = new Vector3(cabinet.transform.position.x - cabinet.GetComponent<CabinetScript>().boundExtends.x,cabinet.transform.position.y,cabinet.transform.position.z);
+					isHobAlongTheWidth = false;
+				}
+
+				if(hobOnWall.name == "rightWall")
+				{
+					hobWallPoint = new Vector3(cabinet.transform.position.x + cabinet.GetComponent<CabinetScript>().boundExtends.x,cabinet.transform.position.y,cabinet.transform.position.z);
+					isHobAlongTheWidth = false;
+				}
+
+				distanceFromInitailVertToHob = Vector3.Distance (hobOnWall.initialVertex.transform.position,hobWallPoint);
+				distanceFromFinalVertToHob = Vector3.Distance (hobOnWall.finalVertex.transform.position,hobWallPoint);
 			}
 		}
 	}
