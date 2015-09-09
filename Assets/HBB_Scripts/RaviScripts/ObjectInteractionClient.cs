@@ -1,6 +1,6 @@
 ﻿/***************************
 Developer: Ravikiran T.A
-Date: 07/09/2015
+Created Date: 07/09/2015
 Class Summary: Object interactions is responsible for raising events for different types of interactions with objects.
 ***************************/
 
@@ -36,10 +36,13 @@ public class ObjectInteractionClient : MonoBehaviour {
 	#region Variables
 	public Interactions objectInteraction;
 	
-	//------Will be used to trigger events whenever an object is selected
-	
+	//------ Used to trigger events whenever an object is selected -----
 	public delegate void ObjectSelection(GameObject selectedObject);
 	public static event ObjectSelection objectSelected;
+	
+	//---- Used to trigger events whenever an object is selected -----
+	public delegate void EnterEditMode();
+	public static event EnterEditMode editModeEntered;
 	#endregion
 	
 	void Start () {
@@ -56,11 +59,17 @@ public class ObjectInteractionClient : MonoBehaviour {
 	void Selected(){
 		
 		Debug.Log("Selected:" + gameObject.name);
+		
 		//----- Set the object status to selected -----
 		objectInteraction.SetSelected();
 		
 		//----- Call the object selected trigger -----
-		objectSelected(gameObject);
+		if(objectSelected != null)
+			objectSelected(gameObject);
+			
+		//----- Call the edit mode entered trigger -----
+		if(editModeEntered != null)
+			editModeEntered();
 	}
 	#endregion
 }
