@@ -108,24 +108,20 @@ public class CameraManager : MonoBehaviour {
 		
 		//----Store original position before focussing-------
 		StoreOriginalPosition();
-			
 		
 		//-----Get height and width of the selcted object------
 		float widthOfObject = 1.5f;
 		float heightOfObject = selectedObject.GetComponent<Collider>().bounds.extents.y;
 		
-		
 		//-----Object width based calculation--------
 		//float distance = (widthOfObject/2) / CameraFOVBasedValue;
 		//float distance = distanceFromObjectOnZoom;
-		
 		
 		//------Calculate camera Position-----------
 		Vector3 position;
 		position = selectedObject.transform.position + selectedObject.transform.forward * distanceFromObjectOnZoom;
 		position = position + new Vector3(0f,cameraHeightWithObjectOnZoom,0f);
 		iTween.MoveTo(animationCamera,position,cameraFocusOnObjectSpeed);
-		
 		
 		//-------Camera Rotation---------
 		Vector3 rotation;
@@ -141,8 +137,6 @@ public class CameraManager : MonoBehaviour {
 	//===== Used to calculate camera position based on size of the room =====
 	public void RecalculateCameraOnRoomChange(GameObject WidthWall){
 	
-		
-	
 		//------Calculate Distance to Move To---------
 		float widthOfKitchen = RoomManager.Instance.topWall.lengthOfWall;
 		float depthOfKitchen = RoomManager.Instance.leftWall.lengthOfWall;
@@ -150,10 +144,8 @@ public class CameraManager : MonoBehaviour {
 		Debug.Log("WidthOfKitchen" + widthOfKitchen);
 		Debug.Log("DepthOfKitchen" + depthOfKitchen);
 		
-		
 		//--------Camera Position---------
 		float distance = Mathf.Max((widthOfKitchen/2) / CameraFOVBasedValue,depthOfKitchen * 1.02f);
-		
 		Debug.Log("Distance:" + distance);
 		
 		

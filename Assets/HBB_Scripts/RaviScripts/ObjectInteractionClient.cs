@@ -29,7 +29,6 @@ public class Interactions{
 };
 #endregion
 
-
 #region ObjectInteractionsClass
 public class ObjectInteractionClient : MonoBehaviour {
 	

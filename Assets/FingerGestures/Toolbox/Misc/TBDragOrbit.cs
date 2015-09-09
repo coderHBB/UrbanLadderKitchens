@@ -53,12 +53,12 @@ public class TBDragOrbit : MonoBehaviour
     public float minPitch = -20;
     public float maxPitch = 80;
     
-    /***Ravi**/
+    //----------------Ravi-----------------
     //Keep Yaw angle between min and max yaw
     public bool clampYawAngle = true;
     public float minYaw;
     public float maxYaw;
-	/********/
+	//------------------------------------
 
     /// <summary>
     /// Allow the user to affect the orbit distance using the pinch zoom gesture
@@ -175,9 +175,9 @@ public class TBDragOrbit : MonoBehaviour
     void Start()
     {
     
-    	//--------Ravi------/
+    	//--------Ravi----------/
 		script = GetComponent<TBDragOrbit>();
-    	//-----------------/
+    	//---------------------/
     	
     	
         if( !panningPlane )
