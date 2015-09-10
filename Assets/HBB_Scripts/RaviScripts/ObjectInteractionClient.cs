@@ -18,11 +18,14 @@ public class Interactions{
 	}
 	public interactionTypes interaction;
 	
+	//---------- Set object value as selected ----------
 	public void SetSelected(){
 		if(interactable)
 			interaction = interactionTypes.Selected;
 	}
 	
+	
+	//---------- Set object value as unselected --------
 	public void SetUnSelected(){
 		interaction = interactionTypes.Unselected;
 	}
@@ -34,9 +37,10 @@ public class ObjectInteractionClient : MonoBehaviour {
 	
 	#region Variables
 	public Interactions objectInteraction;
+	public CabinetScript.TypeOfCabinet objectType;
 	
 	//------ Used to trigger events whenever an object is selected -----
-	public delegate void ObjectSelection(GameObject selectedObject);
+	public delegate void ObjectSelection(GameObject selectedObject,CabinetScript.TypeOfCabinet objectType);
 	public static event ObjectSelection objectSelected;
 	
 	//---- Used to trigger events whenever an object is selected -----
@@ -45,7 +49,8 @@ public class ObjectInteractionClient : MonoBehaviour {
 	#endregion
 	
 	void Start () {
-		
+		//----------- Retrieving selected cabinet type to pass along with object selected event ----------
+		objectType = GetComponent<CabinetScript>()._typeOfCabinet;
 	}
 	
 	#region ObjectSelected
@@ -64,7 +69,7 @@ public class ObjectInteractionClient : MonoBehaviour {
 		
 		//----- Call the object selected trigger -----
 		if(objectSelected != null)
-			objectSelected(gameObject);
+			objectSelected(gameObject,objectType);
 			
 		//----- Call the edit mode entered trigger -----
 		if(editModeEntered != null)

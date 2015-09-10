@@ -121,9 +121,9 @@ public class TBDragOrbit : MonoBehaviour
     {
         get { return idealYaw; }
         //set { idealYaw = value; }
-		/*******Ravi********/
+		//------------Ravi-----------
 		set { idealYaw = clampYawAngle ? ClampAngle(value,minYaw,maxYaw) : value; }
-		/******************/
+		//---------------------------
     }
 
     public float Pitch
@@ -151,16 +151,15 @@ public class TBDragOrbit : MonoBehaviour
     
 	//--------Ravi-------/
 	TBDragOrbit script;
-	public bool cannotbeEnabled;
+	public bool orbitCannotBeEnabledLock;
 	
-	//    void Awake(){
-	//		ObjectInteractionClient.objectSelected += DisableTBOrbit;
-	//    }
-	
-	public void DisableTBOrbit(GameObject selectedObject){
+	//------------- This function will disable the Orbit function used for the rotate feature of the camera when object is selected ---------
+	public void DisableTBOrbit(GameObject selectedObject,CabinetScript.TypeOfCabinet objectType){
 		script.enabled = false;
+		CancelInvoke("EnableTBOrbitScript");
 	}
 	
+	//------------- This function will disable the Orbit function used for the rotate feature of the camera when object is de-selected ---------
 	public void EnableTBOrbit(float time){
 		Invoke("EnableTBOrbitScript",time);
 	}
@@ -198,11 +197,11 @@ public class TBDragOrbit : MonoBehaviour
 
     void OnEnable()
     {
-    	//----------Ravi------Added trigger connections from Object interaction to disable the TB Orbit Script-----
+    	//---------- Rav i------ Adding trigger connections from Object interaction to disable the TB Orbit Script -----
 		ObjectInteractionClient.objectSelected += DisableTBOrbit;
-		//----------Ravi------Removed trigger connections from Camera Manager to enable the TB Orbit Script-----
+		//---------- Ravi ------ Removing trigger connections from Camera Manager to enable the TB Orbit Script -----
 		CameraManager.enableCameraRotation -= EnableTBOrbit;
-		//----------------------------------------------
+		//----------------------------------------------------------
     
         FingerGestures.OnDragMove += FingerGestures_OnDragMove;
         FingerGestures.OnPinchMove += FingerGestures_OnPinchMove;
