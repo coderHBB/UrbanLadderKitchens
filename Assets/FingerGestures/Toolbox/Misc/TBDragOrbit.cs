@@ -115,6 +115,9 @@ public class TBDragOrbit : MonoBehaviour
     public float Yaw
     {
         get { return yaw; }
+        //----------- Ravi -----------
+		set { yaw = clampYawAngle ? ClampAngle(value,minYaw,maxYaw) : value; }
+		//----------------------------
     } 
 
     public float IdealYaw
@@ -129,6 +132,9 @@ public class TBDragOrbit : MonoBehaviour
     public float Pitch
     {
         get { return pitch; }
+		//----------- Ravi -----------
+		set { yaw = clampPitchAngle ? ClampAngle(value,minPitch,maxPitch) : value; }
+		//----------------------------
     } 
 
     public float IdealPitch

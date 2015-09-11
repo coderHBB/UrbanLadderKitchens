@@ -75,6 +75,10 @@ public class CameraManager : MonoBehaviour {
 	
 	//-------- Values specific to Hobs -------------
 	public ObjectSpecificValues hob;
+	
+	[Header("Internals")]
+	//-------- Values specific to Hobs -------------
+	public ObjectSpecificValues drawers;
 
 	
 	//--------------------------------------------- General -----------------------------------------------------------------------------------------------
@@ -95,6 +99,8 @@ public class CameraManager : MonoBehaviour {
 	[Header("Gameobject Refernces")]
 	[Tooltip("Attach here the camera that is to be used for animation")]
 	public GameObject animationCamera;
+	
+	public TBDragOrbit TBDragOrbitScript;
 	
 	[Tooltip("Attach here the gameobject that is to be used by Tb Drag Orbit Script")]
 	public GameObject targetObject;
@@ -130,6 +136,8 @@ public class CameraManager : MonoBehaviour {
 		cameraFOVBasedValue = Mathf.Tan(Mathf.Deg2Rad * cameraFOV / 2f);
 		originalRotation = animationCamera.transform.rotation.eulerAngles;
 		
+		TBDragOrbitScript = animationCamera.GetComponent<TBDragOrbit>();
+		
 		//-------------- Saving camera position ---------------
 		StoreOriginalPosition(animationCamera.transform.position);
 		
@@ -141,7 +149,14 @@ public class CameraManager : MonoBehaviour {
 	#region FocusCameraOnObject
 	//===== Used for direct call or focusing the camera on objects =====
 	public void FocusCameraOnObject(GameObject selectedObject,CabinetScript.TypeOfCabinet objectType) {
-				
+		
+		//-------------- Saving camera position ---------------
+		//StoreOriginalPosition(animationCamera.transform.position);
+		
+		//-------------- Saving camera rotation ---------------
+		//StoreOriginalRotation();
+		
+		
 		//---------- Calculate new camera position ----------
 		Vector3 position = PositionCamera(selectedObject,objectType);
 		
@@ -279,6 +294,31 @@ public class CameraManager : MonoBehaviour {
 				}
 				break;
 			}
+			
+			//---------------------------------------------------------- INTERNALS -------------------------------------------------------
+			
+			//-------------- DRAWS -----------------
+			case CabinetScript.TypeOfCabinet.MidSizeCabinet:{
+				//---- IF Auto Fit -----------------
+				if(drawers.autoFitCameraToBaseCabinetSize){
+					//----------- Set distance from the fron of the cabinet -----
+					float sizeOfObject = Mathf.Max(selectedObject.GetComponent<Collider>().bounds.extents.x,selectedObject.GetComponent<Collider>().bounds.extents.y * drawers.maxZoomLimitOnObject);
+					float distance = sizeOfObject / cameraFOVBasedValue;
+					Debug.Log("Distance Z:" + distance);
+					Debug.Log("Object Z:" + selectedObject.transform.position.z);
+					position = selectedObject.transform.position + selectedObject.transform.forward * distance * 1.8f;
+					
+					//-------- Set the height of the camera ------
+					position = position + new Vector3(0f,drawers.cameraHeightWithObjectOnZoom,0f);
+					Debug.Log("Position Z:" + position.z);
+				}
+				//--------- Else use manual fit -----------
+				else{
+					position = selectedObject.transform.position + selectedObject.transform.forward * drawers.distanceFromObjectOnZoom;
+					position = position + new Vector3(0f,drawers.cameraHeightWithObjectOnZoom,0f);
+				}
+				break;
+			}
 		}
 		return position;
 	}
@@ -322,6 +362,15 @@ public class CameraManager : MonoBehaviour {
 				rotation = new Vector3(selectedObject.transform.rotation.eulerAngles.x + hob.verticalViewAngleOnObjectSelection,
 				                       selectedObject.transform.rotation.eulerAngles.y + hob.horizontalViewAngleOnObjectSelection,selectedObject.transform.rotation.eulerAngles.z);
 				break;
+			}
+			
+			//-------------------- INTERNALS ------------------------
+			
+			//-------------------- HOB -----------------------
+			case CabinetScript.TypeOfCabinet.MidSizeCabinet: {
+				rotation = new Vector3(selectedObject.transform.rotation.eulerAngles.x + drawers.verticalViewAngleOnObjectSelection,
+			                       selectedObject.transform.rotation.eulerAngles.y + drawers.horizontalViewAngleOnObjectSelection,selectedObject.transform.rotation.eulerAngles.z);
+			break;
 			}
 		}
 		return rotation;
@@ -370,6 +419,11 @@ public class CameraManager : MonoBehaviour {
 		
 		//----- Set camera status to View Mode -----
 		camStatus = cameraStatus.ViewMode;
+		
+		TBDragOrbitScript.IdealPitch = 0f;
+		TBDragOrbitScript.IdealYaw = 0f;
+		TBDragOrbitScript.Yaw = 0f;
+		TBDragOrbitScript.Pitch = 0f;
 	}
 	#endregion
 	
@@ -400,11 +454,13 @@ public class CameraManager : MonoBehaviour {
 	//===== This function will be called from UI when View Mode Button is pressed =====
 	public void GoToViewMode(){
 		
+		ResetCameraToViewMode();
+		
 		//--- This event trigger will be used to enable the rotation in the TB Drag Orbit script ------
 		if(enableCameraRotation != null)
 			enableCameraRotation(cameraResetToViewModeSpeed);
 				
-		ResetCameraToViewMode();
+		
 		
 	}
 	#endregion
