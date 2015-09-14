@@ -83,10 +83,14 @@
      <Compile Include="Assets\HBB_Scripts\CabinetScript.cs" />
      <Compile Include="Assets\HBB_Scripts\Database.cs" />
      <Compile Include="Assets\HBB_Scripts\HUDFPS.cs" />
+     <Compile Include="Assets\HBB_Scripts\RaviScripts\CameraManager.cs" />
+     <Compile Include="Assets\HBB_Scripts\RaviScripts\FPSCounter.cs" />
+     <Compile Include="Assets\HBB_Scripts\RaviScripts\ObjectInteractionClient.cs" />
+     <Compile Include="Assets\HBB_Scripts\RaviScripts\TestCameraRotation.cs" />
+     <Compile Include="Assets\HBB_Scripts\RaviScripts\UIManager.cs" />
      <Compile Include="Assets\HBB_Scripts\RoomManager.cs" />
      <Compile Include="Assets\HBB_Scripts\VertScript.cs" />
      <Compile Include="Assets\HBB_Scripts\WallScript.cs" />
-     <Compile Include="Assets\HBB_Scripts\uiManager.cs" />
      <Compile Include="Assets\iTweenEditor\Examples\StartAndStopTween.cs" />
      <Compile Include="Assets\iTweenEditor\Helper Classes\EventParamMappings.cs" />
      <Compile Include="Assets\iTweenEditor\Helper Classes\Vector3OrTransform.cs" />
