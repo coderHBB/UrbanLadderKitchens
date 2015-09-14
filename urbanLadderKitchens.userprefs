@@ -2,11 +2,17 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/HBB_Scripts/RaviScripts/CameraManager.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets/HBB_Scripts/RaviScripts/CameraManager.cs" Line="422" Column="3" />
       <File FileName="Assets/HBB_Scripts/RaviScripts/ObjectInteractionClient.cs" Line="83" Column="44" />
       <File FileName="Assets/HBB_Scripts/CabinetScript.cs" Line="15" Column="2" />
       <File FileName="Assets/FingerGestures/Toolbox/Misc/TBDragOrbit.cs" Line="270" Column="88" />
       <File FileName="Assets/HBB_Scripts/RaviScripts/UIManager.cs" Line="20" Column="58" />
+=======
+      <File FileName="Assets\HBB_Scripts\BoundingBox.cs" Line="170" Column="1" />
+      <File FileName="Assets\HBB_Scripts\CabinetScript.cs" Line="27" Column="27" />
+      <File FileName="Assets\HBB_Scripts\RoomManager.cs" Line="133" Column="88" />
+>>>>>>> manishDevelopmentBranch
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
