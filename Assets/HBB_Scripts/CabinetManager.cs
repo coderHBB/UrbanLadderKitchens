@@ -23,6 +23,9 @@ public class CabinetManager : MonoBehaviour {
 	}
 
 	public List<GameObject> cabinetsInScene = new List<GameObject>();
+	public GameObject cabinetHolder; // Parent gameobject for all the cabinets
+	public float maximumSwapSize; // The maximumSize of the object that can be swapped by the app on wall dimension change
+
 	// Use this for initialization
 	void Start () {
 
