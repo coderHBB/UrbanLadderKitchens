@@ -58,6 +58,7 @@ public class RoomManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		InputFromUserAccepted ();
+
 	}
 	
 	// Update is called once per frame
@@ -90,7 +91,7 @@ public class RoomManager : MonoBehaviour {
 		float widthOfKitchenFromUser = inMeters (feet_Width, inch_Width);
 		float currentWidthOfKitchen = Vector3.Distance (vertA1.transform.position, vertB1.transform.position);
 		float alteredWidth = widthOfKitchenFromUser - currentWidthOfKitchen;
-		print ("alteredWidth : " + alteredWidth);
+//		print ("alteredWidth : " + alteredWidth);
 
 		//Depth of Kitchen
 		float depthOfKitchenFromUser = inMeters (feet_Depth, inch_Depth);
@@ -100,7 +101,7 @@ public class RoomManager : MonoBehaviour {
 	
 		if (isHobAlongTheWidth) { //hob is along the width of kitchen
 
-			print ("along the width");
+//			print ("along the width");
 			percentageOfWallFromInitial = Percentage (distanceFromInitailVertToHob, currentWidthOfKitchen);
 			percentageOfWallFromFinal = Percentage (distanceFromFinalVertToHob, currentWidthOfKitchen);
 			wallLengthToBeAddedFromInitial = WallLengthToBeChanged (Percentage (distanceFromInitailVertToHob, currentWidthOfKitchen), alteredWidth);
@@ -108,10 +109,10 @@ public class RoomManager : MonoBehaviour {
 
 			MoveWallVertex_width (WallLengthToBeChanged (percentageOfWallFromInitial, alteredWidth), WallLengthToBeChanged (percentageOfWallFromFinal, alteredWidth));
 			MoveWallVertex_depth ((alteredDepth / 2), (alteredDepth / 2));
-			print ("alteredDepth : " + alteredDepth);
+//			print ("alteredDepth : " + alteredDepth);
 		} 
 		else { // hob is along the depth of the kitchen
-			print ("along the depth");
+//			print ("along the depth");
 
 			percentageOfWallFromInitial = Percentage (distanceFromInitailVertToHob,currentDepthOfKitchen);
 			percentageOfWallFromFinal = Percentage (distanceFromFinalVertToHob,currentDepthOfKitchen);
@@ -125,6 +126,11 @@ public class RoomManager : MonoBehaviour {
 			MoveWallVertex_width ((alteredWidth / 2), (alteredWidth / 2));
 
 		}
+
+		topWall.boundingBox.previousLengthOfBoundingBox = topWall.boundingBox.totalSpace;
+		bottomWall.boundingBox.previousLengthOfBoundingBox = bottomWall.boundingBox.totalSpace;
+		leftWall.boundingBox.previousLengthOfBoundingBox = leftWall.boundingBox.totalSpace;
+		rightWall.boundingBox.previousLengthOfBoundingBox = rightWall.boundingBox.totalSpace;
 	}
 
 	void MoveWallVertex_width (float toBeAddedOnA1A2, float toBeAddedOnB1B2) // Moves the vertices of the walls along its width based on the parameters passed
@@ -180,6 +186,17 @@ public class RoomManager : MonoBehaviour {
 		//To find wallHob ratio
 		HobWall ();
 
+		//Add Cabinets
+		topWall.boundingBox.AddSubtractBaseCabinets ();
+		bottomWall.boundingBox.AddSubtractBaseCabinets ();
+		leftWall.boundingBox.AddSubtractBaseCabinets ();
+		rightWall.boundingBox.AddSubtractBaseCabinets ();
+
+//		//Subtract Cabinets
+//		topWall.boundingBox.SubtractCabinets ();
+//		bottomWall.boundingBox.SubtractCabinets ();
+//		leftWall.boundingBox.SubtractCabinets ();
+//		rightWall.boundingBox.SubtractCabinets ();
 	}
 
 	void HobWall () // To find which wall is the hob attached to.
@@ -191,7 +208,7 @@ public class RoomManager : MonoBehaviour {
 			{
 				hobOnWall = cabinet.GetComponent<CabinetScript>().attachedToWall.GetComponent<WallScript>();
 
-				print ("the hob is atached to "+hobOnWall.name);
+//				print ("the hob is atached to "+hobOnWall.name);
 
 				if(hobOnWall.name == "topWall")
 				{

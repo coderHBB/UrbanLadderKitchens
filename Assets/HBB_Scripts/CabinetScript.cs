@@ -27,10 +27,15 @@ public class CabinetScript : MonoBehaviour {
 	public GameObject attachedToWall; // The wall to which this cabinet is attached
 	[HideInInspector]
 	public bool isAddedToWall; // to add the cabinet to wall's list only once
+
+	void Awake ()
+	{
+		boundExtends = CabinetManager.Instance.BoundExtends (this.gameObject);
+	}
 	// Use this for initialization
 	void Start () {
 
-		boundExtends = CabinetManager.Instance.BoundExtends (this.gameObject);
+//		boundExtends = CabinetManager.Instance.BoundExtends (this.gameObject);
 		CabinetManager.Instance.cabinetsInScene.Add (this.gameObject);
 
 		if (_typeOfCabinet == TypeOfCabinet.CornerCabinet) { // if this object is a corner object
@@ -41,11 +46,7 @@ public class CabinetScript : MonoBehaviour {
 			_cornerObj.cornerVert.wall2.cornerObjects.Add(this.gameObject);
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-	}
 
 	GameObject ClosestVertex ()
 	{
