@@ -56,9 +56,27 @@ public class RoomManager : MonoBehaviour {
 	public float wallLengthToBeAddedFromFinal;
 
 	// Use this for initialization
+	void OnEnabe(){
+		UIManager.OnRoomSizeChange += DimensionInput;
+	}
+	
+	void OnDisable(){
+		UIManager.OnRoomSizeChange -= DimensionInput;
+	}
+
 	void Start () {
 		InputFromUserAccepted ();
+	}
 
+
+
+	public void DimensionInput (float widthFeet, float widthInches, float depthFeet, float depthInches)
+	{
+		Debug.Log ("Called Change Room Size");
+		feet_Width = widthFeet;
+		feet_Depth = depthFeet;
+		inch_Width = widthInches;
+		inch_Depth = depthInches;
 	}
 	
 	// Update is called once per frame

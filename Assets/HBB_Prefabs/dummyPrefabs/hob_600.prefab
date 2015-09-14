@@ -11,6 +11,8 @@ GameObject:
   - 33: {fileID: 3359452}
   - 23: {fileID: 2334194}
   - 114: {fileID: 11421968}
+  - 65: {fileID: 6500020}
+  - 114: {fileID: 11498028}
   m_Layer: 0
   m_Name: hob_600
   m_TagString: Untagged
@@ -61,6 +63,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127570}
   m_Mesh: {fileID: 4300000, guid: 272c47201c6530243b6c66e22d124dc2, type: 3}
+--- !u!65 &6500020
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127570}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .599999964, y: .599999964, z: .599999964}
+  m_Center: {x: 0, y: .299999982, z: 0}
 --- !u!114 &11421968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,6 +93,25 @@ MonoBehaviour:
   boundExtends: {x: 0, y: 0, z: 0}
   attachedToWall: {fileID: 0}
   isAddedToWall: 0
+--- !u!114 &11498028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1f1c7c46d4c45cb950b7659117c331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectSelectionStatus:
+    interactable: 1
+    selectedOnMouseDown: 0
+    interaction: 0
+  selfCollider: {fileID: 0}
+  internals: 0
+  childColliders: []
+  selectedObjectType: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
