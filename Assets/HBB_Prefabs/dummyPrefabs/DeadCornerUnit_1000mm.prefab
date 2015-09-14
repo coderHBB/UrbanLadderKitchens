@@ -11,6 +11,8 @@ GameObject:
   - 33: {fileID: 3312518}
   - 23: {fileID: 2318750}
   - 114: {fileID: 11466018}
+  - 65: {fileID: 6508102}
+  - 114: {fileID: 11470034}
   m_Layer: 0
   m_Name: DeadCornerUnit_1000mm
   m_TagString: Untagged
@@ -61,6 +63,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156074}
   m_Mesh: {fileID: 4300000, guid: 889b5f2b616868d42a231bf1874f1d8a, type: 3}
+--- !u!65 &6508102
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .999999881, y: .599999964, z: .599999905}
+  m_Center: {x: 0, y: .299999982, z: 0}
 --- !u!114 &11466018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,6 +93,25 @@ MonoBehaviour:
   boundExtends: {x: 0, y: 0, z: 0}
   attachedToWall: {fileID: 0}
   isAddedToWall: 0
+--- !u!114 &11470034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1f1c7c46d4c45cb950b7659117c331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectSelectionStatus:
+    interactable: 1
+    selectedOnMouseDown: 0
+    interaction: 0
+  selfCollider: {fileID: 0}
+  internals: 0
+  childColliders: []
+  selectedObjectType: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
