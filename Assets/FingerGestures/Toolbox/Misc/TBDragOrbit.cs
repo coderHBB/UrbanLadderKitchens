@@ -52,6 +52,13 @@ public class TBDragOrbit : MonoBehaviour
     public bool clampPitchAngle = true;
     public float minPitch = -20;
     public float maxPitch = 80;
+    
+    //----------------Ravi-----------------
+    //Keep Yaw angle between min and max yaw
+    public bool clampYawAngle = true;
+    public float minYaw;
+    public float maxYaw;
+	//------------------------------------
 
     /// <summary>
     /// Allow the user to affect the orbit distance using the pinch zoom gesture
@@ -93,6 +100,7 @@ public class TBDragOrbit : MonoBehaviour
     Vector3 idealPanOffset = Vector3.zero;
     Vector3 panOffset = Vector3.zero;
     
+    
     public float Distance
     {
         get { return distance; }
@@ -107,17 +115,26 @@ public class TBDragOrbit : MonoBehaviour
     public float Yaw
     {
         get { return yaw; }
+        //----------- Ravi -----------
+		set { yaw = clampYawAngle ? ClampAngle(value,minYaw,maxYaw) : value; }
+		//----------------------------
     } 
 
     public float IdealYaw
     {
         get { return idealYaw; }
-        set { idealYaw = value; }
+        //set { idealYaw = value; }
+		//------------Ravi-----------
+		set { idealYaw = clampYawAngle ? ClampAngle(value,minYaw,maxYaw) : value; }
+		//---------------------------
     }
 
     public float Pitch
     {
         get { return pitch; }
+		//----------- Ravi -----------
+		set { yaw = clampPitchAngle ? ClampAngle(value,minPitch,maxPitch) : value; }
+		//----------------------------
     } 
 
     public float IdealPitch
@@ -136,9 +153,38 @@ public class TBDragOrbit : MonoBehaviour
     {
         get { return panOffset; }
     }
+    
+    
+	//--------Ravi-------/
+	TBDragOrbit script;
+	public bool orbitCannotBeEnabledLock;
+	
+	//------------- This function will disable the Orbit function used for the rotate feature of the camera when object is selected ---------
+	public void DisableTBOrbit(GameObject selectedObject,CabinetScript.TypeOfCabinet objectType){
+		script.enabled = false;
+		CancelInvoke("EnableTBOrbitScript");
+	}
+	
+	//------------- This function will disable the Orbit function used for the rotate feature of the camera when object is de-selected ---------
+	public void EnableTBOrbit(float time){
+		Invoke("EnableTBOrbitScript",time);
+	}
+	
+	//===== This will enable the script when triggered from the Camera Manager =====
+	void EnableTBOrbitScript(){
+		if(CameraManager.Instance.camStatus == CameraManager.cameraStatus.ViewMode)
+			script.enabled = true;
+	}
+	//========================================================
 
     void Start()
     {
+    
+    	//--------Ravi----------/
+		script = GetComponent<TBDragOrbit>();
+    	//---------------------/
+    	
+    	
         if( !panningPlane )
             panningPlane = this.transform;
 
@@ -157,6 +203,12 @@ public class TBDragOrbit : MonoBehaviour
 
     void OnEnable()
     {
+    	//---------- Rav i------ Adding trigger connections from Object interaction to disable the TB Orbit Script -----
+		ObjectInteractionClient.objectSelected += DisableTBOrbit;
+		//---------- Ravi ------ Removing trigger connections from Camera Manager to enable the TB Orbit Script -----
+		CameraManager.enableCameraRotation -= EnableTBOrbit;
+		//----------------------------------------------------------
+    
         FingerGestures.OnDragMove += FingerGestures_OnDragMove;
         FingerGestures.OnPinchMove += FingerGestures_OnPinchMove;
         FingerGestures.OnTwoFingerDragMove += FingerGestures_OnTwoFingerDragMove;
@@ -164,6 +216,12 @@ public class TBDragOrbit : MonoBehaviour
         
     void OnDisable()
     {
+		//----------Ravi------Removed trigger connections from Object interaction to disable the TB Orbit Script-----
+		ObjectInteractionClient.objectSelected -= DisableTBOrbit;
+		//----------Ravi------Added trigger connections from Camera Manager to enable the TB Orbit Script-----
+		CameraManager.enableCameraRotation += EnableTBOrbit;
+		//----------------------------------------------------------
+    
         FingerGestures.OnDragMove -= FingerGestures_OnDragMove;
         FingerGestures.OnPinchMove -= FingerGestures_OnPinchMove;
         FingerGestures.OnTwoFingerDragMove -= FingerGestures_OnTwoFingerDragMove;
