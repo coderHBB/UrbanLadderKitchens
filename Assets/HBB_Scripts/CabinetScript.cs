@@ -27,10 +27,15 @@ public class CabinetScript : MonoBehaviour {
 	public GameObject attachedToWall; // The wall to which this cabinet is attached
 	[HideInInspector]
 	public bool isAddedToWall; // to add the cabinet to wall's list only once
+
+	void Awake ()
+	{
+		boundExtends = CabinetManager.Instance.BoundExtends (this.gameObject);
+	}
 	// Use this for initialization
 	void Start () {
 
-		boundExtends = CabinetManager.Instance.BoundExtends (this.gameObject);
+//		boundExtends = CabinetManager.Instance.BoundExtends (this.gameObject);
 		CabinetManager.Instance.cabinetsInScene.Add (this.gameObject);
 
 		if (_typeOfCabinet == TypeOfCabinet.CornerCabinet) { // if this object is a corner object
@@ -40,14 +45,8 @@ public class CabinetScript : MonoBehaviour {
 			_cornerObj.cornerVert.wall1.cornerObjects.Add(this.gameObject);            
 			_cornerObj.cornerVert.wall2.cornerObjects.Add(this.gameObject);
 		}
-//		Positioning ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-//		if (Input.GetKeyDown (KeyCode.Q))
-//			  Positioning (); // temporarily kept on update, should be called only when an event is triggered
-	}
+
 
 	GameObject ClosestVertex ()
 	{
@@ -92,13 +91,13 @@ public class CabinetScript : MonoBehaviour {
 				gameObject.transform.position = new Vector3(gameObject.transform.position.x + boundExtends.x ,0 , gameObject.transform.position.z + boundExtends.z);
 			
 			if(_cornerObj.cornerVert.name == "vertexA2")
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x + boundExtends.x , 0 , gameObject.transform.position.z - boundExtends.z);
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x + boundExtends.x ,0 , gameObject.transform.position.z - boundExtends.z);
 			
 			if(_cornerObj.cornerVert.name == "vertexB1")
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x , 0 , gameObject.transform.position.z + boundExtends.z);
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x ,0 , gameObject.transform.position.z + boundExtends.z);
 			
 			if(_cornerObj.cornerVert.name == "vertexB2")
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x , 0 , gameObject.transform.position.z - boundExtends.z);
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x - boundExtends.x ,0 , gameObject.transform.position.z - boundExtends.z);
 
 			break;
 
@@ -115,13 +114,23 @@ public class CabinetScript : MonoBehaviour {
 
 	void positionCabinets () // positions all cabinets except corner cabinets
 	{
-		if(attachedToWall.name == "topWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x ,attachedToWall.transform.position.y,attachedToWall.transform.position.z - boundExtends.z - 0.05f);
-		if(attachedToWall.name == "leftWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x + boundExtends.x + 0.05f ,attachedToWall.transform.position.y,attachedToWall.transform.position.z);
-		if(attachedToWall.name == "rightWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x - boundExtends.x - 0.05f ,attachedToWall.transform.position.y,attachedToWall.transform.position.z);
-		if(attachedToWall.name == "bottomWall")
-			gameObject.transform.position = new Vector3(attachedToWall.transform.position.x ,attachedToWall.transform.position.y,attachedToWall.transform.position.z + boundExtends.z + 0.05f);
+		if (attachedToWall.name == "topWall") {
+			gameObject.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, attachedToWall.transform.position.z - boundExtends.z - 0.05f);
+//			gameObject.transform.Rotate (0,180,0);
+		}
+		if (attachedToWall.name == "leftWall") {
+			gameObject.transform.position = new Vector3 (attachedToWall.transform.position.x + boundExtends.x + 0.05f, gameObject.transform.position.y, gameObject.transform.position.z);
+//			gameObject.transform.Rotate (0,90,0);
+		}
+		if (attachedToWall.name == "rightWall") {
+			gameObject.transform.position = new Vector3 (attachedToWall.transform.position.x - boundExtends.x - 0.05f, gameObject.transform.position.y, gameObject.transform.position.z);
+//			gameObject.transform.Rotate (0,270,0);
+		}
+		if (attachedToWall.name == "bottomWall") {
+			gameObject.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, attachedToWall.transform.position.z + boundExtends.z + 0.05f);
+//			gameObject.transform.Rotate (0,0,0);
+		}
+		boundExtends = CabinetManager.Instance.BoundExtends (this.gameObject);
+
 	}
 }
