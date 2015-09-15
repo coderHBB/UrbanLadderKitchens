@@ -1459,6 +1459,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 110638, guid: 4a849ac426306db4193978316c8c5ee6, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4a849ac426306db4193978316c8c5ee6, type: 2}
   m_IsPrefabParent: 0
@@ -1490,10 +1494,6 @@ MonoBehaviour:
   bounds_max: {x: 0, y: 0, z: 0}
   cabinetsInBoundingBox: []
   listOfCabinetsLength: []
-  boundingBox_min: {x: 0, y: 0, z: 0}
-  boundingBox_max: {x: 0, y: 0, z: 0}
-  cabinet_min: {x: 0, y: 0, z: 0}
-  cabinet_max: {x: 0, y: 0, z: 0}
   previousLengthOfBoundingBox: 0
   cabinetsToBeDestroyed: []
 --- !u!1001 &867546986
@@ -2888,10 +2888,6 @@ MonoBehaviour:
   bounds_max: {x: 0, y: 0, z: 0}
   cabinetsInBoundingBox: []
   listOfCabinetsLength: []
-  boundingBox_min: {x: 0, y: 0, z: 0}
-  boundingBox_max: {x: 0, y: 0, z: 0}
-  cabinet_min: {x: 0, y: 0, z: 0}
-  cabinet_max: {x: 0, y: 0, z: 0}
   previousLengthOfBoundingBox: 0
   cabinetsToBeDestroyed: []
 --- !u!1001 &1491170699
@@ -2964,10 +2960,6 @@ MonoBehaviour:
   bounds_max: {x: 0, y: 0, z: 0}
   cabinetsInBoundingBox: []
   listOfCabinetsLength: []
-  boundingBox_min: {x: 0, y: 0, z: 0}
-  boundingBox_max: {x: 0, y: 0, z: 0}
-  cabinet_min: {x: 0, y: 0, z: 0}
-  cabinet_max: {x: 0, y: 0, z: 0}
   previousLengthOfBoundingBox: 0
   cabinetsToBeDestroyed: []
 --- !u!1 &1549079373 stripped
@@ -2994,10 +2986,6 @@ MonoBehaviour:
   bounds_max: {x: 0, y: 0, z: 0}
   cabinetsInBoundingBox: []
   listOfCabinetsLength: []
-  boundingBox_min: {x: 0, y: 0, z: 0}
-  boundingBox_max: {x: 0, y: 0, z: 0}
-  cabinet_min: {x: 0, y: 0, z: 0}
-  cabinet_max: {x: 0, y: 0, z: 0}
   previousLengthOfBoundingBox: 0
   cabinetsToBeDestroyed: []
 --- !u!4 &1549079376 stripped
