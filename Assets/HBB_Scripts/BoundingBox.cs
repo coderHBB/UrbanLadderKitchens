@@ -1,6 +1,7 @@
 ﻿/*****************
  * Manish
  * This script defines the bounding box attached to walls
+ * Addition/Subtraction of cabinets are done here
 *****************/
 
 using UnityEngine;
@@ -10,29 +11,25 @@ using System.Linq;
 
 public class BoundingBox : MonoBehaviour {
 
-	public WallScript attachedToWall;
-	public Vector3 boundExtends;
-	public float totalSpace;        // the total space available in the bounding box in millimeters.
-	public float occupiedSpace;		// the space occupied by the cabinets in the bounding box (in mm).
-	public float availableSpace;	// the space available in the bounding box to place more cabinets (in mm).
+	public WallScript attachedToWall; 	// the wall to which the bounding box is linked or attached to.
+	public Vector3 boundExtends;		// bounds extends of the boundingBox
+	public float totalSpace;        	// the total space available in the bounding box in millimeters.
+	public float occupiedSpace;			// the space occupied by the cabinets in the bounding box (in mm).
+	public float availableSpace;		// the space available in the bounding box to place more cabinets (in mm).
 
-	public Vector3 bounds_min;
-	public Vector3 bounds_max;
+	public Vector3 bounds_min;			// minimum bounds of bounding box 
+	public Vector3 bounds_max;			// maximum bounds of bounding box
 
-	public List<GameObject> cabinetsInBoundingBox = new List<GameObject>();
-	public List<float> listOfCabinetsLength = new List<float>();
-
-	public Vector3 boundingBox_min;
-	public Vector3 boundingBox_max;
-	public Vector3 cabinet_min;
-	public Vector3 cabinet_max;
-
-	public float previousLengthOfBoundingBox;
-
-	public List<GameObject> cabinetsToBeDestroyed = new List<GameObject> ();
+	public List<GameObject> cabinetsInBoundingBox = new List<GameObject>(); // cabinets within this bounding box
+	public List<float> listOfCabinetsLength = new List<float>();            // list of sizes of each cabinet
 
 
+	public float previousLengthOfBoundingBox;  // length of bounding box before altering the dimensions of the kitchen
 
+	public List<GameObject> cabinetsToBeDestroyed = new List<GameObject> (); // This list is used to store cabinets that are to be destroyed while subtracting cabinets
+
+
+	// position, scale and rotation of bounding box.
 	public void PositionScaleRotation () 
 	{
 		float cornerSpace = 0;
